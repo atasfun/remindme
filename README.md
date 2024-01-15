@@ -1,2 +1,26 @@
-# remindme
-Reminder bot for Mastodon
+# RemindMe
+Reminder bot ([@remindme@mstdn.social](https://mstdn.social/@remindme)) for [Fediverse](https://en.wikipedia.org/wiki/Fediverse), e.g., [Mastodon](https://en.wikipedia.org/wiki/Mastodon_(social_network)), [Lemmy](https://en.wikipedia.org/wiki/Lemmy_(social_network)), etc.
+
+## Features
+- Allows timed reminders to be set by Fediverse users by tagging the bot in a message, e.g., `@remindme@mstdn.social 1 day`
+- The bot will post an acknowledgement message when registering the reminder, and posts another message after the desired duration
+- The bot supports durations in minutes, hours, days, weeks, months, and years
+- Currently, the bot posts messages publicly (the acknowledgment and reminder messages). If a private message is desired, `dm` should be added to the message, e.g., `@remindme@mstdn.social 1 day dm`
+- Uses [mastodon-api-client](https://github.com/vazaha-nl/mastodon-api-client) as the Mastodon API to read/write to the Fediverse
+
+## Usage
+- Set a reminder: `@remindme@mstdn.social [duration]`, e.g., `1 day`, `1 month` etc
+- Set a reminder privately: `@remindme@mstdn.social [duration] dm`, e.g., `1 day dm`, `1 month dm` etc
+
+## Development
+The bot is written in PHP, though the author is not well-versed in PHP, so the code has lots of room for improvement. The bot was written as a fun project to contribute to the Fediverse.
+
+### Bugs, issues, feature requests, etc
+Please open a GitHub issue, contact [@atasfun@mastodon.gamedev.place](https://mastodon.gamedev.place/@atasfun), or send an email
+
+### Improving the bot
+If you would like to improve the bot's features, please feel free to submit a GitHub pull request
+
+## Author
+[Allison Liemhetcharat](https://www.linkedin.com/in/allison-liem/) ([@allisonliem@mastodon.online](https://mastodon.online/@allisonliem))
+
