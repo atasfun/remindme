@@ -13,7 +13,8 @@ Reminder bot ([@remindme@mstdn.social](https://mstdn.social/@remindme)) for [Fed
 - Set a reminder privately: `@remindme@mstdn.social [duration] dm`, e.g., `1 day dm`, `1 month dm` etc
 
 ## Development
-The bot is written in PHP, though the author is not well-versed in PHP, so the code has lots of room for improvement. The bot was written as a fun project to contribute to the Fediverse.
+- The bot is written in PHP, though the author is not well-versed in PHP, so the code has lots of room for improvement. The bot was written as a fun project to contribute to the Fediverse.
+- [add_reminders.php](https://github.com/atasfun/remindme/blob/main/php/add_reminders.php) and [send_reminders.php](https://github.com/atasfun/remindme/blob/main/php/send_reminders.php) are run on a cron job every minute to add and send reminders respectively.
 
 ### Bugs, issues, feature requests, etc
 Please open a GitHub issue, contact [@atasfun@mastodon.gamedev.place](https://mastodon.gamedev.place/@atasfun), or send an email
