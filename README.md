@@ -5,12 +5,14 @@ Reminder bot ([@remindme@mstdn.social](https://mstdn.social/@remindme)) for [Fed
 - Allows timed reminders to be set by Fediverse users by tagging the bot in a message, e.g., `@remindme@mstdn.social 1 day`
 - The bot will post an acknowledgement message when registering the reminder, and posts another message after the desired duration
 - The bot supports durations in minutes, hours, days, weeks, months, and years
-- Currently, the bot posts messages publicly (the acknowledgment and reminder messages). If a private message is desired, `dm` should be added to the message, e.g., `@remindme@mstdn.social 1 day dm`
+- The bot also support date-times in ISO-8601, e.g., `2025-01-30T15:33+02:00`. If no time is given, then midnight UTC will be used
+- Currently, the bot posts messages publicly (the acknowledgment and reminder messages). If a private message is desired, `dm` or `DM` should be added to the message, e.g., `@remindme@mstdn.social 1 day dm`
 - Uses [mastodon-api-client](https://github.com/vazaha-nl/mastodon-api-client) as the Mastodon API to read/write to the Fediverse
 
 ## Usage
 - Set a reminder: `@remindme@mstdn.social [duration]`, e.g., `1 day`, `1 month` etc
-- Set a reminder privately: `@remindme@mstdn.social [duration] dm`, e.g., `1 day dm`, `1 month dm` etc
+- Set a reminder for a date-time: `@remindme@mstdn.social [ISO-8601 date-time]`, e.g., `2025-01-30T15:33+02:00`
+- Set a reminder privately: `@remindme@mstdn.social [duration] dm`, e.g., `1 day dm`, `1 day DM`, `1 month dm` etc
 
 ## Development
 - The bot is written in PHP, though the author is not well-versed in PHP, so the code has lots of room for improvement. The bot was written as a fun project to contribute to the Fediverse.

@@ -38,7 +38,8 @@ function getAbsoluteDateTime(string $input_string) {
     $truncated_datetime = $iso_date->setTime(hour: intval($iso_date->format('H')), minute: intval($iso_date->format('i')), second: 0, microsecond: 0);
 
     return [true, $truncated_datetime];
-  } catch (\Exception $e) {
+  }
+  catch (\Exception $e) {
     return [false, null];
   }
 }
