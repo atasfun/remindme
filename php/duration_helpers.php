@@ -10,6 +10,39 @@ function fillInDurationResult(array $match_key, int $index, string $key, array &
   }
 }
 
+function getAbsoluteDateTime(string $input_string) {
+  // Extract the ISO-8601 date from the string (with/without time)
+  $regex = '/\s(\d{4}-\d{2}-\d{2}([T ]\d{2}:\d{2}(:\d{2})?([+\-]\d{2}:\d{2}|Z)?)?)/';
+
+  if (preg_match($regex, $input_string, $matches)) {
+    $iso_date_string = $matches[1];
+  }
+  else {
+    return [false, null];
+  }
+
+  $has_time = (strpos($iso_date_string, 'T') !== false) || (strpos($iso_date_string, ' ') !== false);
+
+  try {
+    // If no time zone was given, but a time was given, use UTC
+    if ($has_time && !preg_match('/[Z\+\-]/', $iso_date_string)) {
+      $iso_date_string .= ' UTC';
+    }
+    // If no time was given, assume midnight UTC
+    else if (!$has_time) {
+      $iso_date_string .= 'T00:00:00 UTC';
+    }
+    $iso_date = new \DateTimeImmutable($iso_date_string);
+
+    // Truncate seconds and microseconds
+    $truncated_datetime = $iso_date->setTime(hour: intval($iso_date->format('H')), minute: intval($iso_date->format('i')), second: 0, microsecond: 0);
+
+    return [true, $truncated_datetime];
+  } catch (\Exception $e) {
+    return [false, null];
+  }
+}
+
 function getDurationInSeconds(string $input_string) {
   $best_result = array('year' => 0, 'month' => 0, 'week' => 0, 'day' => 0, 'hour' => 0, 'minute' => 0);
   $longest_duration = 0;
@@ -49,22 +82,15 @@ function addTimeDelta(\DateTimeImmutable $current_datetime, array $result): \Dat
 }
 
 function shouldSendDm($input_string): bool {
-  $send_dm = false;
-  
-  $regex = '/(^|.*\s|.*>)(?<dm>dm)($|\s.*|<.*)/';
-  
-  if (preg_match($regex, $input_string, $matches)) {
-    if (in_array('dm', $matches) and ($matches['dm'] == 'dm')) {
-      $send_dm = true;
-    }
-  }
-  
-  return $send_dm;
+  // Check for "dm" or "DM"
+  $regex = '/(^|\s|>)(dm|DM)($|\s|<)/';
+
+  return preg_match_all($regex, $input_string) > 0;
 }
 
 function getFormattedDateTime(\DateTimeImmutable $datetime_to_format): string {
-  $datetime_in_pacific = $datetime_to_format->setTimezone(new \DateTimeZone('America/Los_Angeles'));
-  return $datetime_in_pacific->format('l M j, Y') . ' at ' . $datetime_in_pacific->format('g:i A T');
+  $datetime_in_utc = $datetime_to_format->setTimezone(new \DateTimeZone('UTC'));
+  return $datetime_in_utc->format('l M j, Y') . ' at ' . $datetime_in_utc->format('g:i A T');
 }
 
 ?>

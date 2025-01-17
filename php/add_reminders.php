@@ -55,19 +55,27 @@ foreach ($notifications as $notification) {
 
   print "Received from: $user: $message, id: $message_id<br />" . \PHP_EOL;
   
-  [$result, $duration_seconds] = getDurationInSeconds($message);
   $send_dm = shouldSendDm($message);
-  if ($duration_seconds <= 0) {
-    print "No duration found, skipping!<br />" . \PHP_EOL;
-    # Update the last notification id
-    if (($last_notification_id == null) or ($notification_id > $last_notification_id)) {
-      setLastNotification($db_conn, $server_id, $notification_id);
-      $last_notification_id = $notification_id;
-    }
-    continue;
+
+  [$have_absolute, $absolute_datetime] = getAbsoluteDateTime($message);
+  print "Have absolute: $have_absolute<br />" . \PHP_EOL;
+  if ($have_absolute) {
+    $reminder_datetime = $absolute_datetime;
   }
-  
-  $reminder_datetime = addTimeDelta($message_datetime, $result);
+  else {
+    [$result, $duration_seconds] = getDurationInSeconds($message);
+    if ($duration_seconds <= 0) {
+      print "No duration found, skipping!<br />" . \PHP_EOL;
+      # Update the last notification id
+      if (($last_notification_id == null) or ($notification_id > $last_notification_id)) {
+        setLastNotification($db_conn, $server_id, $notification_id);
+        $last_notification_id = $notification_id;
+      }
+      continue;
+    }
+
+    $reminder_datetime = addTimeDelta($message_datetime, $result);
+  }
   
   $send_reply = addQueue($db_conn, $message_id, $user, $reminder_datetime, $send_dm);
   
