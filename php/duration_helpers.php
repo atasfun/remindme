@@ -83,8 +83,8 @@ function addTimeDelta(\DateTimeImmutable $current_datetime, array $result): \Dat
 }
 
 function shouldSendDm($input_string): bool {
-  // Check for "dm" or "DM"
-  $regex = '/(^|\s|>)(dm|DM)($|\s|<)/';
+  // Check for "dm" or "pm" (case-insensitive)
+  $regex = '/(^|\s|>)(dm|pm)($|\s|<)/i';
 
   return preg_match_all($regex, $input_string) > 0;
 }
