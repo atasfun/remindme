@@ -6,7 +6,7 @@ Reminder bot ([@remindme@mstdn.social](https://mstdn.social/@remindme)) for [Fed
 - The bot will post an acknowledgement message when registering the reminder, and posts another message after the desired duration
 - The bot supports durations in minutes, hours, days, weeks, months, and years
 - The bot also support date-times in ISO-8601, e.g., `2025-01-30T15:33+02:00`. If no time is given, then midnight UTC will be used
-- Currently, the bot posts messages publicly (the acknowledgment and reminder messages). If a private message is desired, `dm` or `DM` should be added to the message, e.g., `@remindme@mstdn.social 1 day dm`
+- Currently, the bot posts messages publicly (the acknowledgment and reminder messages). If a private message is desired, `dm` or `pm` (case-insensitive) should be added to the message, e.g., `@remindme@mstdn.social 1 day dm`
 - Uses [mastodon-api-client](https://github.com/vazaha-nl/mastodon-api-client) as the Mastodon API to read/write to the Fediverse
 
 ## Usage
